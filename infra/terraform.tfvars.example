@@ -1,0 +1,7 @@
+project_name  = "gleider-dev"
+domain        = "gleider.dev"
+region        = "us-east-1"
+db_name       = "gleiderdev"
+db_username   = "gleider"
+api_image_tag = "latest"
+environment   = "production"
