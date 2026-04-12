@@ -20,6 +20,18 @@ export const metadata: Metadata = {
     template: '%s | gleider.dev',
   },
   description: 'Site pessoal de Gleider — blog, projetos e experiencia profissional.',
+  metadataBase: new URL('https://gleider.dev'),
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    siteName: 'gleider.dev',
+    title: 'gleider.dev',
+    description: 'Site pessoal de Gleider — blog, projetos e experiencia profissional.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
