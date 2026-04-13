@@ -8,11 +8,12 @@ export default function Home() {
           Ola, eu sou
         </p>
         <h1 className="mt-2 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-          Gleider
+          Gleider Mackedanz
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-gray-400 sm:text-xl">
-          Desenvolvedor de software apaixonado por construir produtos digitais de qualidade.
-          Compartilho aqui meus projetos, experiencias e aprendizados.
+          Software Engineer com mais de 7 anos de experiencia em desenvolvimento.
+          Atualmente na Twism, construindo solucoes de e-commerce e produtos para o consumidor final.
+          Formado em Ciencia da Computacao pela UFPel, cursando Tecnologia e Ciencia de Dados na Mackenzie.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <Link

@@ -1,6 +1,6 @@
 # gleider.dev
 
-Site pessoal de Gleider em gleider.dev — blog, portfólio de projetos e experiência profissional.
+Site pessoal de Gleider Mackedanz de Campos em gleider.dev — blog, portfolio de projetos e experiencia profissional.
 
 ## Stack
 
