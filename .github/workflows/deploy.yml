@@ -50,3 +50,6 @@ jobs:
             docker compose pull
             docker compose up -d
             docker image prune -f
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E2XC1C826XLF86 --paths "/*"
