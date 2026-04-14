@@ -19,8 +19,7 @@ export default function Home() {
               Califórnia onde trabalho com plataforma de fidelidade e moedas
               digitais personalizadas. Atuo na área de desenvolvimento desde 2017 e
               atualmente me aprofundo em{' '}
-              <span className="text-gray-200">ciência de dados</span> — a área
-              que mais tenho estudado. Sou curioso por natureza e gosto de
+              <span className="text-gray-200">ciência de dados</span>. Gosto de
               explorar diferentes campos do conhecimento.
             </p>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-gray-400 sm:text-xl">
