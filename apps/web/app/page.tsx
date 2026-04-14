@@ -54,6 +54,7 @@ export default function Home() {
                 src="/images/profile-guitar.jpeg"
                 alt="Gleider Mackedanz"
                 fill
+                sizes="(min-width: 640px) 208px, 160px"
                 className="object-cover"
                 priority
               />
