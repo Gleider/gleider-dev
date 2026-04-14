@@ -6,7 +6,7 @@ Site pessoal de Gleider Mackedanz de Campos em gleider.dev — blog, portfolio d
 
 - **Frontend:** Next.js 15 (App Router) + Tailwind CSS 4 + MDX para blog
 - **Backend:** NestJS 11 + Prisma ORM + PostgreSQL
-- **Infra:** Terraform (AWS: ECS Fargate, RDS, CloudFront, Route53)
+- **Infra:** Terraform (AWS: EC2, RDS, CloudFront, Route53)
 - **CI/CD:** GitHub Actions
 - **Monorepo:** Turborepo + pnpm workspaces
 
@@ -16,7 +16,7 @@ Site pessoal de Gleider Mackedanz de Campos em gleider.dev — blog, portfolio d
 apps/web/       → Next.js frontend (porta 3000)
 apps/api/       → NestJS backend (porta 3001)
 packages/shared → Tipos TypeScript compartilhados (Project, Experience)
-infra/          → Módulos Terraform (networking, database, ecs, cdn, dns)
+infra/          → Módulos Terraform (networking, database, compute, cdn, dns)
 .github/        → Workflows CI/CD
 ```
 
