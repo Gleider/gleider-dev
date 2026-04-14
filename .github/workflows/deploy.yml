@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_REGION: us-east-2
+  ECR_WEB: gleider-dev-web
+  ECR_API: gleider-dev-api
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push API image
+        run: |
+          docker build -f apps/api/Dockerfile -t ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_API }}:latest .
+          docker push ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_API }}:latest
+
+      - name: Build and push Web image
+        run: |
+          docker build -f apps/web/Dockerfile -t ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest .
+          docker push ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.ecr-login.outputs.registry }}
+            cd /home/ec2-user
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
