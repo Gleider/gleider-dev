@@ -3,8 +3,8 @@ import { getExperiences } from '@/lib/api';
 import { ExperienceTimeline } from '@/components/experience-timeline';
 
 export const metadata: Metadata = {
-  title: 'Experiencia',
-  description: 'Minha trajetoria profissional e experiencias de trabalho.',
+  title: 'Experiência',
+  description: 'Minha trajetória profissional e experiências de trabalho.',
 };
 
 export default async function ExperienciaPage() {
@@ -15,10 +15,10 @@ export default async function ExperienciaPage() {
   } catch {
     return (
       <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold tracking-tight text-white">Experiencia</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-white">Experiência</h1>
         <div className="mt-10 rounded-lg border border-gray-800 bg-gray-900 p-8 text-center">
           <p className="text-gray-400">
-            Nao foi possivel carregar as experiencias no momento. Tente novamente mais tarde.
+            Não foi possível carregar as experiências no momento. Tente novamente mais tarde.
           </p>
         </div>
       </section>
@@ -27,8 +27,8 @@ export default async function ExperienciaPage() {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-bold tracking-tight text-white">Experiencia</h1>
-      <p className="mt-3 text-lg text-gray-400">Minha trajetoria profissional.</p>
+      <h1 className="text-4xl font-bold tracking-tight text-white">Experiência</h1>
+      <p className="mt-3 text-lg text-gray-400">Minha trajetória profissional.</p>
 
       <div className="mt-12">
         <ExperienceTimeline experiences={experiences} />

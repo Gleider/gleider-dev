@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: project.description,
     };
   } catch {
-    return { title: 'Projeto nao encontrado' };
+    return { title: 'Projeto não encontrado' };
   }
 }
 
@@ -107,7 +107,7 @@ export default async function ProjetoPage({ params }: PageProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-gray-700 px-5 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:border-gray-500 hover:text-white"
           >
-            Ver repositorio
+            Ver repositório
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

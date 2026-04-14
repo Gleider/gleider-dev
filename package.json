@@ -7,7 +7,11 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:migrate": "pnpm --filter @gleider-dev/api db:migrate",
+    "db:seed": "pnpm --filter @gleider-dev/api db:seed",
+    "db:reset": "pnpm --filter @gleider-dev/api db:reset",
+    "db:studio": "pnpm --filter @gleider-dev/api db:studio"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     default: 'gleider.dev',
     template: '%s | gleider.dev',
   },
-  description: 'Site pessoal de Gleider — blog, projetos e experiencia profissional.',
+  description: 'Site pessoal de Gleider — blog, projetos e experiência profissional.',
   metadataBase: new URL('https://gleider.dev'),
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'gleider.dev',
     title: 'gleider.dev',
-    description: 'Site pessoal de Gleider — blog, projetos e experiencia profissional.',
+    description: 'Site pessoal de Gleider — blog, projetos e experiência profissional.',
   },
   robots: {
     index: true,

@@ -4,7 +4,7 @@ import { ProjectCard } from '@/components/project-card';
 
 export const metadata: Metadata = {
   title: 'Projetos',
-  description: 'Projetos desenvolvidos por Gleider — aplicacoes web, ferramentas e experimentos.',
+  description: 'Projetos desenvolvidos por Gleider — aplicações web, ferramentas e experimentos.',
 };
 
 export default async function ProjetosPage() {
@@ -17,14 +17,14 @@ export default async function ProjetosPage() {
     error =
       err instanceof Error
         ? err.message
-        : 'Nao foi possivel carregar os projetos. Tente novamente mais tarde.';
+        : 'Não foi possível carregar os projetos. Tente novamente mais tarde.';
   }
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold tracking-tight text-white">Projetos</h1>
       <p className="mt-2 text-lg text-gray-400">
-        Aplicacoes, ferramentas e experimentos que construi ou mantenho.
+        Aplicações, ferramentas e experimentos que construí ou mantenho.
       </p>
 
       {error ? (

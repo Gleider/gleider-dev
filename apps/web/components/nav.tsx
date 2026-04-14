@@ -8,7 +8,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/blog', label: 'Blog' },
   { href: '/projetos', label: 'Projetos' },
-  { href: '/experiencia', label: 'Experiencia' },
+  { href: '/experiencia', label: 'Experiência' },
 ];
 
 export function Nav() {
@@ -46,7 +46,7 @@ export function Nav() {
         className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
-        aria-label="Menu de navegacao"
+        aria-label="Menu de navegação"
       >
         <svg
           className="h-6 w-6"
