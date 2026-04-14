@@ -13,38 +13,18 @@ variable "environment" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "VPC ID"
+variable "public_subnet_id" {
+  description = "Public subnet ID for the EC2 instance"
   type        = string
 }
 
-variable "public_subnet_ids" {
-  description = "List of public subnet IDs for the ALB"
-  type        = list(string)
-}
-
-variable "private_subnet_ids" {
-  description = "List of private subnet IDs for ECS tasks"
-  type        = list(string)
-}
-
-variable "ecs_security_group_id" {
-  description = "Security group ID for ECS tasks"
-  type        = string
-}
-
-variable "alb_security_group_id" {
-  description = "Security group ID for the ALB"
-  type        = string
-}
-
-variable "api_image_tag" {
-  description = "Docker image tag for the API container"
+variable "ec2_security_group_id" {
+  description = "Security group ID for the EC2 instance"
   type        = string
 }
 
 variable "db_endpoint" {
-  description = "RDS instance endpoint"
+  description = "RDS instance endpoint (host:port)"
   type        = string
 }
 
@@ -60,5 +40,10 @@ variable "db_username" {
 
 variable "db_password_ssm_arn" {
   description = "ARN of the SSM parameter storing the DB password"
+  type        = string
+}
+
+variable "domain" {
+  description = "Root domain name"
   type        = string
 }

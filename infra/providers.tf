@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
   }
 
   # Local backend by default
@@ -13,7 +17,7 @@ terraform {
   # backend "s3" {
   #   bucket         = "gleider-dev-terraform-state"
   #   key            = "production/terraform.tfstate"
-  #   region         = "us-east-1"
+  #   region         = "us-east-2"
   #   dynamodb_table = "gleider-dev-terraform-lock"
   #   encrypt        = true
   # }

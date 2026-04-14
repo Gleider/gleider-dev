@@ -12,3 +12,8 @@ variable "certificate_arn" {
   description = "ARN of the ACM certificate for the domain"
   type        = string
 }
+
+variable "origin_domain_name" {
+  description = "Public DNS name of the EC2 origin"
+  type        = string
+}

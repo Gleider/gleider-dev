@@ -16,6 +16,7 @@ infra/.terraform/
 infra/*.tfstate
 infra/*.tfstate.backup
 infra/*.tfvars
+infra/*.out
 !infra/terraform.tfvars.example
 
 # Docker

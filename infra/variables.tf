@@ -12,7 +12,7 @@ variable "domain" {
 variable "region" {
   description = "AWS region for resource deployment"
   type        = string
-  default     = "us-east-1"
+  default     = "us-east-2"
 }
 
 variable "db_name" {
@@ -27,14 +27,14 @@ variable "db_username" {
   default     = "gleider"
 }
 
-variable "api_image_tag" {
-  description = "Docker image tag for the API container"
-  type        = string
-  default     = "latest"
-}
-
 variable "environment" {
   description = "Deployment environment"
   type        = string
   default     = "production"
+}
+
+variable "ssh_allowed_cidr" {
+  description = "CIDR block allowed to SSH into the EC2 instance (e.g., your IP)"
+  type        = string
+  default     = "0.0.0.0/0"
 }

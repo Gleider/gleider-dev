@@ -18,12 +18,7 @@ variable "cloudfront_hosted_zone_id" {
   type        = string
 }
 
-variable "alb_dns_name" {
-  description = "DNS name of the ALB"
-  type        = string
-}
-
-variable "alb_zone_id" {
-  description = "Hosted zone ID of the ALB"
+variable "ec2_public_ip" {
+  description = "Public Elastic IP of the EC2 instance"
   type        = string
 }

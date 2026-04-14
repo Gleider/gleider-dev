@@ -10,7 +10,7 @@ resource "aws_route53_zone" "main" {
 }
 
 # -----------------------------------------------------------------------------
-# ACM Wildcard Certificate
+# ACM Wildcard Certificate (must be in us-east-1 for CloudFront)
 # -----------------------------------------------------------------------------
 resource "aws_acm_certificate" "wildcard" {
   domain_name               = var.domain
@@ -65,7 +65,7 @@ resource "aws_route53_record" "apex" {
   }
 }
 
-# www -> CloudFront (same as apex)
+# www -> CloudFront
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "www.${var.domain}"
@@ -78,20 +78,20 @@ resource "aws_route53_record" "www" {
   }
 }
 
-# api.gleider.dev -> ALB
+# api -> CloudFront
 resource "aws_route53_record" "api" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "api.${var.domain}"
   type    = "A"
 
   alias {
-    name                   = var.alb_dns_name
-    zone_id                = var.alb_zone_id
-    evaluate_target_health = true
+    name                   = var.cloudfront_distribution
+    zone_id                = var.cloudfront_hosted_zone_id
+    evaluate_target_health = false
   }
 }
 
-# Wildcard CNAME for future subdomains
+# Wildcard CNAME for future subdomains (e.g., letreco.gleider.dev)
 resource "aws_route53_record" "wildcard" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "*.${var.domain}"

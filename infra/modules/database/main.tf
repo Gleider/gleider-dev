@@ -53,7 +53,7 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot = true
   publicly_accessible = false
 
-  backup_retention_period = 7
+  backup_retention_period = 1
   multi_az                = false
 
   tags = {
