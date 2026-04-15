@@ -22,6 +22,9 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.base.js
 COPY apps/web/ ./apps/web/
 COPY packages/shared/ ./packages/shared/
 
+ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
+ENV NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
+
 RUN pnpm --filter @gleider-dev/web build
 
 # Stage 3: Production runner

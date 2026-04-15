@@ -35,7 +35,7 @@ jobs:
 
       - name: Build and push Web image
         run: |
-          docker build -f apps/web/Dockerfile -t ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest .
+          docker build -f apps/web/Dockerfile --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=G-Q7DBML61H0 -t ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest .
           docker push ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest
 
       - name: Deploy to EC2
