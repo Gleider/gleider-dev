@@ -57,15 +57,11 @@ jobs:
           script: |
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
             cd /home/ec2-user
-
-            cat > .env <<EOF
-GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID
-GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET
-AUTH_SECRET=$AUTH_SECRET
-API_JWT_SECRET=$API_JWT_SECRET
-ECR_REGISTRY=$ECR_REGISTRY
-EOF
-
+            echo "GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID" > .env
+            echo "GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET" >> .env
+            echo "AUTH_SECRET=$AUTH_SECRET" >> .env
+            echo "API_JWT_SECRET=$API_JWT_SECRET" >> .env
+            echo "ECR_REGISTRY=$ECR_REGISTRY" >> .env
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d
             docker image prune -f
