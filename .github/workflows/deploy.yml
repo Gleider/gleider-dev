@@ -38,15 +38,24 @@ jobs:
           docker build -f apps/web/Dockerfile --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=G-Q7DBML61H0 -t ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest .
           docker push ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_WEB }}:latest
 
+      - name: Copy docker-compose to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: docker-compose.prod.yml
+          target: /home/ec2-user/
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: OAUTH_CLIENT_ID,OAUTH_CLIENT_SECRET,AUTH_SECRET,API_JWT_SECRET
+          envs: OAUTH_CLIENT_ID,OAUTH_CLIENT_SECRET,AUTH_SECRET,API_JWT_SECRET,ECR_REGISTRY
           script: |
-            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.ecr-login.outputs.registry }}
+            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
             cd /home/ec2-user
 
             cat > .env <<EOF
@@ -54,16 +63,18 @@ GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID
 GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET
 AUTH_SECRET=$AUTH_SECRET
 API_JWT_SECRET=$API_JWT_SECRET
+ECR_REGISTRY=$ECR_REGISTRY
 EOF
 
-            docker compose pull
-            docker compose up -d
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d
             docker image prune -f
         env:
           OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
           OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           API_JWT_SECRET: ${{ secrets.API_JWT_SECRET }}
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E2XC1C826XLF86 --paths "/*"

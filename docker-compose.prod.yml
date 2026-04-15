@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: gleider_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    image: ${ECR_REGISTRY}/gleider-dev-api:latest
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/gleider_dev?schema=public
+      PORT: '3001'
+      API_JWT_SECRET: ${API_JWT_SECRET}
+      WEB_URL: https://gleider.dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    image: ${ECR_REGISTRY}/gleider-dev-web:latest
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://api:3001
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      AUTH_SECRET: ${AUTH_SECRET}
+      API_JWT_SECRET: ${API_JWT_SECRET}
+      AUTH_URL: https://gleider.dev
+      AUTH_TRUST_HOST: 'true'
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
