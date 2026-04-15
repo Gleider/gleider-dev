@@ -55,6 +55,7 @@ services:
       AUTH_SECRET: ${AUTH_SECRET}
       API_JWT_SECRET: ${API_JWT_SECRET}
       AUTH_URL: https://gleider.dev
+      AUTH_TRUST_HOST: 'true'
     depends_on:
       - api
     volumes:
