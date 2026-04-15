@@ -44,12 +44,26 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: OAUTH_CLIENT_ID,OAUTH_CLIENT_SECRET,AUTH_SECRET,API_JWT_SECRET
           script: |
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.ecr-login.outputs.registry }}
             cd /home/ec2-user
+
+            cat > .env <<EOF
+            GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID
+            GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET
+            AUTH_SECRET=$AUTH_SECRET
+            API_JWT_SECRET=$API_JWT_SECRET
+            EOF
+
             docker compose pull
             docker compose up -d
             docker image prune -f
+        env:
+          OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
+          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+          API_JWT_SECRET: ${{ secrets.API_JWT_SECRET }}
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E2XC1C826XLF86 --paths "/*"
