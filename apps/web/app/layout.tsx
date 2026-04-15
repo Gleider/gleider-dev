@@ -24,12 +24,21 @@ export const metadata: Metadata = {
   },
   description: 'Site pessoal de Gleider — blog, projetos e experiência profissional.',
   metadataBase: new URL('https://gleider.dev'),
+  authors: [{ name: 'Gleider Mackedanz' }],
+  creator: 'Gleider Mackedanz',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'gleider.dev',
     title: 'gleider.dev',
     description: 'Site pessoal de Gleider — blog, projetos e experiência profissional.',
+    url: '/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+  alternates: {
+    canonical: '/',
   },
   robots: {
     index: true,

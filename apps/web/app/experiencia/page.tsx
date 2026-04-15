@@ -5,6 +5,9 @@ import { ExperienceTimeline } from '@/components/experience-timeline';
 export const metadata: Metadata = {
   title: 'Experiência',
   description: 'Minha trajetória profissional e experiências de trabalho.',
+  alternates: {
+    canonical: '/experiencia',
+  },
 };
 
 export default async function ExperienciaPage() {

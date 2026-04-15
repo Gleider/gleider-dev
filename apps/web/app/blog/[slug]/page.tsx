@@ -29,6 +29,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: post.title,
     description: post.summary,
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.summary,
+      url: `/blog/${slug}`,
+      publishedTime: new Date(post.date + 'T12:00:00').toISOString(),
+      tags: post.tags,
+    },
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
   };
 }
 

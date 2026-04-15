@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: project.name,
       description: project.description,
+      openGraph: {
+        title: project.name,
+        description: project.description,
+        url: `/projetos/${slug}`,
+      },
+      alternates: {
+        canonical: `/projetos/${slug}`,
+      },
     };
   } catch {
     return { title: 'Projeto não encontrado' };

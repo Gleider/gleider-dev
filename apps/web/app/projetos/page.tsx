@@ -5,6 +5,9 @@ import { ProjectCard } from '@/components/project-card';
 export const metadata: Metadata = {
   title: 'Projetos',
   description: 'Projetos desenvolvidos por Gleider — aplicações web, ferramentas e experimentos.',
+  alternates: {
+    canonical: '/projetos',
+  },
 };
 
 export default async function ProjetosPage() {

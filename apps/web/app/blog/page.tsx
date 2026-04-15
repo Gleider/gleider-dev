@@ -5,6 +5,9 @@ import { BlogCard } from '@/components/blog-card';
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Artigos sobre desenvolvimento web, arquitetura de software e carreira.',
+  alternates: {
+    canonical: '/blog',
+  },
 };
 
 export default function BlogPage() {
