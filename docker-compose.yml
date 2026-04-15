@@ -29,6 +29,8 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/gleider_dev?schema=public
       PORT: '3001'
+      API_JWT_SECRET: ${API_JWT_SECRET}
+      WEB_URL: https://gleider.dev
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,6 +50,11 @@ services:
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: http://api:3001
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      AUTH_SECRET: ${AUTH_SECRET}
+      API_JWT_SECRET: ${API_JWT_SECRET}
+      AUTH_URL: https://gleider.dev
     depends_on:
       - api
     volumes:

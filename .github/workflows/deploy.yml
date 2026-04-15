@@ -50,11 +50,11 @@ jobs:
             cd /home/ec2-user
 
             cat > .env <<EOF
-            GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID
-            GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET
-            AUTH_SECRET=$AUTH_SECRET
-            API_JWT_SECRET=$API_JWT_SECRET
-            EOF
+GITHUB_CLIENT_ID=$OAUTH_CLIENT_ID
+GITHUB_CLIENT_SECRET=$OAUTH_CLIENT_SECRET
+AUTH_SECRET=$AUTH_SECRET
+API_JWT_SECRET=$API_JWT_SECRET
+EOF
 
             docker compose pull
             docker compose up -d
