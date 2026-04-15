@@ -11,7 +11,13 @@
     "db:migrate": "pnpm --filter @gleider-dev/api db:migrate",
     "db:seed": "pnpm --filter @gleider-dev/api db:seed",
     "db:reset": "pnpm --filter @gleider-dev/api db:reset",
-    "db:studio": "pnpm --filter @gleider-dev/api db:studio"
+    "db:studio": "pnpm --filter @gleider-dev/api db:studio",
+    "docker:up": "docker compose up -d",
+    "docker:rebuild": "docker compose up -d --build",
+    "docker:rebuild:web": "docker compose up -d --build web",
+    "docker:rebuild:api": "docker compose up -d --build api",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
