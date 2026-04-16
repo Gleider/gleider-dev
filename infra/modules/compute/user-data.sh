@@ -59,7 +59,7 @@ server {
     server_name letreco.${domain};
 
     location /api/ {
-        rewrite ^/api/(.*) /$$1 break;
+        rewrite ^/api/(.*) /$1 break;
         proxy_pass http://127.0.0.1:3002;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -84,7 +84,9 @@ NGINX
 
 # Remove default nginx config
 rm -f /etc/nginx/conf.d/default.conf
-sed -i '/server {/,/}/d' /etc/nginx/nginx.conf 2>/dev/null || true
+# Remove the default server block and any orphaned location blocks from nginx.conf
+sed -i '/^        server {/,/^        }/d' /etc/nginx/nginx.conf 2>/dev/null || true
+sed -i '/^        location /,/^        }/d' /etc/nginx/nginx.conf 2>/dev/null || true
 
 systemctl restart nginx
 
