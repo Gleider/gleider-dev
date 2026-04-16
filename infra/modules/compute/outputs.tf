@@ -28,3 +28,13 @@ output "ssh_private_key" {
   value       = tls_private_key.ec2.private_key_pem
   sensitive   = true
 }
+
+output "ecr_letreco_web_repository_url" {
+  description = "URL of the ECR repository for the Letreco web image"
+  value       = aws_ecr_repository.letreco_web.repository_url
+}
+
+output "ecr_letreco_api_repository_url" {
+  description = "URL of the ECR repository for the Letreco API image"
+  value       = aws_ecr_repository.letreco_api.repository_url
+}

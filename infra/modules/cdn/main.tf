@@ -5,7 +5,7 @@ resource "aws_cloudfront_distribution" "main" {
   enabled         = true
   is_ipv6_enabled = true
   comment         = "${var.project_name} distribution"
-  aliases         = [var.domain, "www.${var.domain}", "api.${var.domain}"]
+  aliases         = [var.domain, "www.${var.domain}", "api.${var.domain}", "letreco.${var.domain}"]
   price_class     = "PriceClass_100"
 
   origin {

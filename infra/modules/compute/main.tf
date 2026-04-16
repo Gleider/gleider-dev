@@ -49,6 +49,37 @@ resource "aws_ecr_repository" "api" {
 }
 
 # -----------------------------------------------------------------------------
+# ECR Repositories (Letreco)
+# -----------------------------------------------------------------------------
+resource "aws_ecr_repository" "letreco_web" {
+  name                 = "letreco-web"
+  image_tag_mutability = "MUTABLE"
+  force_delete         = true
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = {
+    Name = "letreco-web"
+  }
+}
+
+resource "aws_ecr_repository" "letreco_api" {
+  name                 = "letreco-api"
+  image_tag_mutability = "MUTABLE"
+  force_delete         = true
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = {
+    Name = "letreco-api"
+  }
+}
+
+# -----------------------------------------------------------------------------
 # IAM Role for EC2 (ECR access + SSM)
 # -----------------------------------------------------------------------------
 data "aws_iam_policy_document" "ec2_assume_role" {
