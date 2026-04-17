@@ -50,11 +50,16 @@ resource "aws_db_instance" "main" {
   db_subnet_group_name   = aws_db_subnet_group.main.name
   vpc_security_group_ids = [var.rds_security_group_id]
 
-  skip_final_snapshot = true
+  skip_final_snapshot = false
+  final_snapshot_identifier = "${var.project_name}-db-final-snapshot"
   publicly_accessible = false
 
   backup_retention_period = 1
   multi_az                = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 
   tags = {
     Name = "${var.project_name}-db"

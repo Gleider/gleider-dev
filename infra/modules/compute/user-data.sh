@@ -97,30 +97,6 @@ aws ecr get-login-password --region ${region} | docker login --username AWS --pa
 ECRLOGIN
 chmod +x /home/ec2-user/ecr-login.sh
 
-# Docker Compose file
-cat > /home/ec2-user/docker-compose.yml << 'COMPOSE'
-services:
-  web:
-    image: ${ecr_web_url}:latest
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.${domain}
-      - API_URL=http://api:3001
-
-  api:
-    image: ${ecr_api_url}:latest
-    restart: always
-    ports:
-      - "3001:3001"
-    environment:
-      - NODE_ENV=production
-      - PORT=3001
-      - DATABASE_URL=postgresql://${db_username}:$${DB_PASSWORD}@${db_endpoint}/${db_name}
-COMPOSE
-
 # Deploy script
 cat > /home/ec2-user/deploy.sh << 'DEPLOY'
 #!/bin/bash
@@ -129,18 +105,7 @@ set -euo pipefail
 echo "Logging into ECR..."
 /home/ec2-user/ecr-login.sh
 
-echo "Getting DB password..."
-export DB_PASSWORD=$(aws ssm get-parameter --name "${db_password_ssm}" --with-decryption --query 'Parameter.Value' --output text --region ${region})
-
-echo "Pulling latest images..."
-cd /home/ec2-user
-docker compose pull
-
-echo "Starting services..."
-docker compose up -d
-
-echo "Deploy complete!"
-docker compose ps
+echo "Deploy complete! Use CI/CD pipelines to deploy applications."
 DEPLOY
 chmod +x /home/ec2-user/deploy.sh
 

@@ -188,6 +188,11 @@ resource "aws_instance" "main" {
     domain         = var.domain
   }))
 
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = [ami, user_data]
+  }
+
   tags = {
     Name = "${var.project_name}-server"
   }
