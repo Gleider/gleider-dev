@@ -34,3 +34,4 @@ Thumbs.db
 
 # Prisma
 apps/api/prisma/*.db
+.worktrees/
