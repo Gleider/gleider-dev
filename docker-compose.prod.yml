@@ -23,6 +23,7 @@ services:
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
       AUTH_SECRET: ${AUTH_SECRET}
       API_JWT_SECRET: ${API_JWT_SECRET}
+      LETRECO_API_URL: https://letreco.gleider.dev
       AUTH_URL: https://gleider.dev
       AUTH_TRUST_HOST: 'true'
     depends_on:
