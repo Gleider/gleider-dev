@@ -4,7 +4,7 @@ import { SignJWT } from 'jose';
 const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 const API_JWT_SECRET = new TextEncoder().encode(process.env.API_JWT_SECRET || '');
 
-async function getAuthHeaders(): Promise<Record<string, string>> {
+export async function getAuthHeaders(): Promise<Record<string, string>> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
