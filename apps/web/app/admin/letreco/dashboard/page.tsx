@@ -1,0 +1,89 @@
+import Link from 'next/link';
+import { letrecoGet, TodayDailyWord, DailyWordEntry, WordsListResponse } from '../../../../lib/letreco-api';
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+
+export default async function LetrecoDashboardPage() {
+  const [today, history, catalog] = await Promise.all([
+    letrecoGet<TodayDailyWord>('/admin/daily-words/today').catch(() => null),
+    letrecoGet<DailyWordEntry[]>('/admin/daily-words?limit=30'),
+    letrecoGet<WordsListResponse>('/admin/words?pageSize=1'),
+  ]);
+
+  const pendingScheduled = history.filter(
+    (d) => d.gameNumber === null && new Date(d.date) > new Date(),
+  );
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold text-white">Letreco</h1>
+
+      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Palavra de hoje */}
+        <div className="col-span-full rounded-lg border border-gray-800 bg-gray-900 p-6">
+          {today ? (
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm text-gray-400 uppercase tracking-wider mb-1">Palavra de hoje</p>
+                <p className="text-5xl font-bold text-white tracking-widest uppercase">
+                  {today.word.text}
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  Jogo #{today.gameNumber ?? <span className="text-amber-400">Aguardando ativação</span>}
+                  {' · '}{formatDate(today.date)}
+                  {' · '}{today.activeSessions} sessão{today.activeSessions !== 1 ? 'ões' : ''} ativa{today.activeSessions !== 1 ? 's' : ''}
+                </p>
+              </div>
+              <Link
+                href="/admin/letreco/trocar-palavra"
+                className="rounded-lg border border-gray-700 px-4 py-2 text-sm text-gray-300 hover:border-gray-500 whitespace-nowrap transition-colors"
+              >
+                Trocar palavra
+              </Link>
+            </div>
+          ) : (
+            <p className="text-gray-400">Sem palavra configurada para hoje.</p>
+          )}
+        </div>
+
+        {/* Total no catálogo */}
+        <Link
+          href="/admin/letreco/catalogo"
+          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+        >
+          <p className="text-3xl font-bold text-white">{catalog.total.toLocaleString('pt-BR')}</p>
+          <p className="mt-1 text-sm text-gray-400">Palavras no catálogo</p>
+        </Link>
+
+        {/* Agendamentos pendentes */}
+        <Link
+          href="/admin/letreco/agendar"
+          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+        >
+          <p className="text-3xl font-bold text-white">{pendingScheduled.length}</p>
+          <p className="mt-1 text-sm text-gray-400">Agendamentos pendentes</p>
+          {pendingScheduled.length > 0 && (
+            <p className="mt-2 text-xs text-gray-500">
+              Próximo: {pendingScheduled.sort((a, b) => a.date.localeCompare(b.date))[0]?.word.text.toUpperCase()}
+            </p>
+          )}
+        </Link>
+
+        {/* Link para histórico */}
+        <Link
+          href="/admin/letreco/historico"
+          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+        >
+          <p className="text-3xl font-bold text-white">{history.filter(d => d.gameNumber !== null).length}</p>
+          <p className="mt-1 text-sm text-gray-400">Jogos no histórico recente</p>
+        </Link>
+      </div>
+    </div>
+  );
+}
