@@ -35,6 +35,12 @@ export default async function AdminLayout({
             Projetos
           </Link>
           <Link
+            href="/admin/letreco"
+            className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            Letreco
+          </Link>
+          <Link
             href="/"
             className="rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-800 hover:text-gray-300 transition-colors"
           >
