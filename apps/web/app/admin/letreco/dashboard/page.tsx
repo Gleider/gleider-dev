@@ -12,11 +12,11 @@ function formatDate(dateStr: string) {
 export default async function LetrecoDashboardPage() {
   const [today, history, catalog] = await Promise.all([
     letrecoGet<TodayDailyWord>('/admin/daily-words/today').catch(() => null),
-    letrecoGet<DailyWordEntry[]>('/admin/daily-words?limit=30'),
-    letrecoGet<WordsListResponse>('/admin/words?pageSize=1'),
+    letrecoGet<DailyWordEntry[]>('/admin/daily-words?limit=30').catch(() => null),
+    letrecoGet<WordsListResponse>('/admin/words?pageSize=1').catch(() => null),
   ]);
 
-  const pendingScheduled = history.filter(
+  const pendingScheduled = (history ?? []).filter(
     (d) => d.gameNumber === null && new Date(d.date) > new Date(),
   );
 
@@ -57,7 +57,7 @@ export default async function LetrecoDashboardPage() {
           href="/admin/letreco/catalogo"
           className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
         >
-          <p className="text-3xl font-bold text-white">{catalog.total.toLocaleString('pt-BR')}</p>
+          <p className="text-3xl font-bold text-white">{catalog?.total.toLocaleString('pt-BR') ?? '–'}</p>
           <p className="mt-1 text-sm text-gray-400">Palavras no catálogo</p>
         </Link>
 
@@ -80,7 +80,7 @@ export default async function LetrecoDashboardPage() {
           href="/admin/letreco/historico"
           className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
         >
-          <p className="text-3xl font-bold text-white">{history.filter(d => d.gameNumber !== null).length}</p>
+          <p className="text-3xl font-bold text-white">{(history ?? []).filter(d => d.gameNumber !== null).length}</p>
           <p className="mt-1 text-sm text-gray-400">Jogos no histórico recente</p>
         </Link>
       </div>
