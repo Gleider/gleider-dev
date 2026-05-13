@@ -23,14 +23,11 @@ export function SidebarNav({ items }: { items: NavItem[] }) {
           <Link
             key={item.href}
             href={item.href}
-            className="block px-2 py-1.5 rounded-md transition-colors"
-            style={{
-              fontSize: '13px',
-              fontWeight: isActive ? 500 : 400,
-              color: isActive ? '#ffffff' : '#666666',
-              backgroundColor: isActive ? '#1a1a1a' : 'transparent',
-              borderLeft: isActive ? '2px solid #4f7fff' : '2px solid transparent',
-            }}
+            className={`block px-2 py-1.5 rounded-md transition-colors text-[13px] border-l-2 ${
+              isActive
+                ? 'bg-[#1a1a1a] font-medium text-white border-[#4f7fff]'
+                : 'text-[#666666] border-transparent hover:text-[#aaaaaa]'
+            }`}
           >
             {item.label}
           </Link>
