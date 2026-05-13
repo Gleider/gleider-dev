@@ -24,6 +24,7 @@ services:
       AUTH_SECRET: ${AUTH_SECRET}
       API_JWT_SECRET: ${API_JWT_SECRET}
       LETRECO_API_URL: http://172.18.0.1:3002
+      DATABASE_URL_ZELAR: ${DATABASE_URL_ZELAR}
       AUTH_URL: https://gleider.dev
       AUTH_TRUST_HOST: 'true'
     depends_on:
