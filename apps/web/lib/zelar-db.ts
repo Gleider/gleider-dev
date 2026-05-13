@@ -1,16 +1,18 @@
 import { Pool } from 'pg';
 
-let pool: Pool | null = null;
+const g = global as typeof globalThis & { _zelarPool?: Pool };
 
 function getPool(): Pool {
-  if (!pool) {
+  if (!g._zelarPool) {
     const connectionString = process.env.DATABASE_URL_ZELAR;
     if (!connectionString) {
       throw new Error('DATABASE_URL_ZELAR não configurado');
     }
-    pool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
+    // rejectUnauthorized: false porque o CA da RDS não está no bundle do Node.
+    // Trocar por ssl: { ca: ... } após adicionar o CA bundle do RDS.
+    g._zelarPool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
   }
-  return pool;
+  return g._zelarPool;
 }
 
 export interface ZelarStats {
@@ -81,14 +83,14 @@ export async function getRecentZelarUsers(): Promise<ZelarUser[]> {
     household_name: string | null;
     plan_name: string | null;
   }>(
-    `SELECT u.name, u.email, u.created_at, u.deleted_at,
+    `SELECT DISTINCT ON (u.created_at, u.id) u.name, u.email, u.created_at, u.deleted_at,
             h.name AS household_name, p.name AS plan_name
      FROM "user" u
      LEFT JOIN membership m ON m.user_id = u.id
      LEFT JOIN household h ON h.id = m.household_id
      LEFT JOIN plan p ON h.plan_id = p.id
      WHERE u.is_anonymized = false
-     ORDER BY u.created_at DESC
+     ORDER BY u.created_at DESC, u.id
      LIMIT 20`
   );
 
