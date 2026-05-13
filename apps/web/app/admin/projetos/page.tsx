@@ -8,11 +8,11 @@ export default async function AdminProjectsPage() {
 
   return (
     <div>
-      <div className="flex items-center gap-2 mb-8 text-[12px]">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-8 text-[12px]">
         <Link href="/admin" className="text-[#444444] hover:text-white transition-colors">Admin</Link>
-        <span className="text-[#333333]">/</span>
-        <span className="text-white">Projetos</span>
-      </div>
+        <span className="text-[#333333]" aria-hidden="true">/</span>
+        <span className="text-white" aria-current="page">Projetos</span>
+      </nav>
 
       <div className="flex items-center justify-between mb-10">
         <h1 className="font-extrabold text-[42px] text-white tracking-[-0.03em] leading-none">

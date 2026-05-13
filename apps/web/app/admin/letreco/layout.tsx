@@ -16,11 +16,11 @@ export default function LetreroAdminLayout({ children }: { children: React.React
 
   return (
     <div>
-      <div className="flex items-center gap-2 mb-6 text-[12px]">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-6 text-[12px]">
         <Link href="/admin" className="text-[#444444] hover:text-white transition-colors">Admin</Link>
-        <span className="text-[#333333]">/</span>
-        <span className="text-white">Letreco</span>
-      </div>
+        <span className="text-[#333333]" aria-hidden="true">/</span>
+        <span className="text-white" aria-current="page">Letreco</span>
+      </nav>
 
       <nav className="mb-8 flex gap-1 border-b border-[#1f1f1f]">
         {TABS.map((tab) => {
