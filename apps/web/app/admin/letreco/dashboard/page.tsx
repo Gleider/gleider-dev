@@ -22,11 +22,11 @@ export default async function LetrecoDashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white">Letreco</h1>
+      <h1 className="font-extrabold text-[42px] text-white tracking-[-0.03em] leading-none mb-8">Letreco</h1>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* Palavra de hoje */}
-        <div className="col-span-full rounded-lg border border-gray-800 bg-gray-900 p-6">
+        <div className="col-span-full rounded-xl border border-[#1f1f1f] bg-[#111111] p-[20px_24px]">
           {today ? (
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -55,19 +55,19 @@ export default async function LetrecoDashboardPage() {
         {/* Total no catálogo */}
         <Link
           href="/admin/letreco/catalogo"
-          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+          className="rounded-xl border border-[#1f1f1f] bg-[#111111] p-[20px_24px] hover:border-[#2f2f2f] transition-colors"
         >
-          <p className="text-3xl font-bold text-white">{catalog?.total.toLocaleString('pt-BR') ?? '–'}</p>
-          <p className="mt-1 text-sm text-gray-400">Palavras no catálogo</p>
+          <p className="font-extrabold text-[34px] text-white tracking-[-0.03em] leading-none">{catalog?.total.toLocaleString('pt-BR') ?? '–'}</p>
+          <p className="mt-2 font-semibold uppercase text-[11px] text-[#444444] tracking-[0.08em]">Palavras no catálogo</p>
         </Link>
 
         {/* Agendamentos pendentes */}
         <Link
           href="/admin/letreco/agendar"
-          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+          className="rounded-xl border border-[#1f1f1f] bg-[#111111] p-[20px_24px] hover:border-[#2f2f2f] transition-colors"
         >
-          <p className="text-3xl font-bold text-white">{pendingScheduled.length}</p>
-          <p className="mt-1 text-sm text-gray-400">Agendamentos pendentes</p>
+          <p className="font-extrabold text-[34px] text-white tracking-[-0.03em] leading-none">{pendingScheduled.length}</p>
+          <p className="mt-2 font-semibold uppercase text-[11px] text-[#444444] tracking-[0.08em]">Agendamentos pendentes</p>
           {pendingScheduled.length > 0 && (
             <p className="mt-2 text-xs text-gray-500">
               Próximo: {pendingScheduled.sort((a, b) => a.date.localeCompare(b.date))[0]?.word.text.toUpperCase()}
@@ -78,10 +78,10 @@ export default async function LetrecoDashboardPage() {
         {/* Link para histórico */}
         <Link
           href="/admin/letreco/historico"
-          className="rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-gray-700 transition-colors"
+          className="rounded-xl border border-[#1f1f1f] bg-[#111111] p-[20px_24px] hover:border-[#2f2f2f] transition-colors"
         >
-          <p className="text-3xl font-bold text-white">{(history ?? []).filter(d => d.gameNumber !== null).length}</p>
-          <p className="mt-1 text-sm text-gray-400">Jogos no histórico recente</p>
+          <p className="font-extrabold text-[34px] text-white tracking-[-0.03em] leading-none">{(history ?? []).filter(d => d.gameNumber !== null).length}</p>
+          <p className="mt-2 font-semibold uppercase text-[11px] text-[#444444] tracking-[0.08em]">Jogos no histórico recente</p>
         </Link>
       </div>
     </div>

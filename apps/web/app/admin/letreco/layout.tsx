@@ -16,17 +16,23 @@ export default function LetreroAdminLayout({ children }: { children: React.React
 
   return (
     <div>
-      <nav className="mb-8 border-b border-gray-800 flex gap-1">
+      <div className="flex items-center gap-2 mb-6 text-[12px]">
+        <Link href="/admin" className="text-[#444444] hover:text-white transition-colors">Admin</Link>
+        <span className="text-[#333333]">/</span>
+        <span className="text-white">Letreco</span>
+      </div>
+
+      <nav className="mb-8 flex gap-1 border-b border-[#1f1f1f]">
         {TABS.map((tab) => {
           const isActive = tab.exact ? pathname === tab.href : pathname.startsWith(tab.href);
           return (
             <Link
               key={tab.href}
               href={tab.href}
-              className={`px-4 py-2 text-sm font-medium transition-colors -mb-px ${
+              className={`transition-colors -mb-px text-[13px] px-4 py-2 border-b-2 ${
                 isActive
-                  ? 'border-b-2 border-white text-white'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'font-medium text-white border-white'
+                  : 'text-[#555555] border-transparent hover:text-[#aaaaaa]'
               }`}
             >
               {tab.label}
@@ -34,6 +40,7 @@ export default function LetreroAdminLayout({ children }: { children: React.React
           );
         })}
       </nav>
+
       {children}
     </div>
   );
