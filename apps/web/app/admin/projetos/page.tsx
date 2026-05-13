@@ -8,15 +8,24 @@ export default async function AdminProjectsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Projetos</h1>
+      <div className="flex items-center gap-2 mb-8 text-[12px]">
+        <Link href="/admin" className="text-[#444444] hover:text-white transition-colors">Admin</Link>
+        <span className="text-[#333333]">/</span>
+        <span className="text-white">Projetos</span>
+      </div>
+
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="font-extrabold text-[42px] text-white tracking-[-0.03em] leading-none">
+          Projetos
+        </h1>
         <Link
           href="/admin/projetos/novo"
-          className="inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-950 transition-colors hover:bg-gray-200"
+          className="inline-flex items-center rounded-lg bg-white text-[#0a0a0a] px-4 py-2 text-[13px] font-medium hover:bg-[#e5e5e5] transition-colors"
         >
           Novo projeto
         </Link>
       </div>
+
       <ProjectTable projects={projects} />
     </div>
   );
