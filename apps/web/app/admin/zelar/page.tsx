@@ -1,13 +1,6 @@
 import Link from 'next/link';
 import { getZelarStats, getRecentZelarUsers } from '../../../lib/zelar-db';
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-}
+import { formatDate } from '../../../lib/utils';
 
 export default async function ZelarAdminPage() {
   let stats = null;
@@ -20,7 +13,7 @@ export default async function ZelarAdminPage() {
     error = e instanceof Error ? e.message : 'Erro ao conectar ao banco Zelar';
   }
 
-  if (error) {
+  if (error || !stats || !users) {
     return (
       <div>
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-8 text-[12px]">
@@ -44,11 +37,11 @@ export default async function ZelarAdminPage() {
   }
 
   const statCards = [
-    { label: 'Usuários', value: stats!.totalUsers.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'total cadastrados' },
-    { label: 'Novos (7d)', value: `+${stats!.newUsersLast7Days}`, colorClass: 'text-[#4f7fff]', sub: 'últimos 7 dias' },
-    { label: 'Casas', value: stats!.totalHouseholds.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'households ativos' },
-    { label: 'Plano PRO', value: stats!.proHouseholds.toLocaleString('pt-BR'), colorClass: 'text-[#f59e0b]', sub: 'casas com PRO' },
-    { label: 'Tarefas', value: stats!.totalTasks.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'criadas no total' },
+    { label: 'Usuários', value: stats.totalUsers.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'total cadastrados' },
+    { label: 'Novos (7d)', value: `+${stats.newUsersLast7Days}`, colorClass: 'text-[#4f7fff]', sub: 'últimos 7 dias' },
+    { label: 'Casas', value: stats.totalHouseholds.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'households ativos' },
+    { label: 'Plano PRO', value: stats.proHouseholds.toLocaleString('pt-BR'), colorClass: 'text-[#f59e0b]', sub: 'casas com PRO' },
+    { label: 'Tarefas', value: stats.totalTasks.toLocaleString('pt-BR'), colorClass: 'text-white', sub: 'criadas no total' },
   ];
 
   return (
@@ -66,7 +59,9 @@ export default async function ZelarAdminPage() {
           </h1>
           <p className="mt-2 text-[14px] text-[#444444]">Visão geral do produto</p>
         </div>
-        <span className="font-mono text-[11px] text-[#333333]">atualizado agora</span>
+        <span className="font-mono text-[11px] text-[#333333]">
+          {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+        </span>
       </div>
 
       {/* Stat cards */}
@@ -101,11 +96,11 @@ export default async function ZelarAdminPage() {
         </div>
 
         {/* Table rows */}
-        {users!.map((user, i) => {
+        {users.map((user) => {
           const isDeleted = user.deletedAt !== null;
           return (
             <div
-              key={`${user.email}-${i}`}
+              key={user.email}
               className={`flex items-center px-6 py-3.5 border-b border-[#161616] ${isDeleted ? 'opacity-40' : ''}`}
             >
               <div className={`w-[200px] shrink-0 text-[13px] font-medium text-[#e5e5e5] ${isDeleted ? 'line-through' : ''}`}>
